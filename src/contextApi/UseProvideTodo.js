@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useContext, useState, useEffect } from 'react'
 import { TodoContext } from '../provider/Provider'
+import toast from 'react-hot-toast'
 
 const useTodo = () => {
   return useContext(TodoContext)
@@ -8,7 +9,7 @@ const useTodo = () => {
 
 const useTodoProvider = () => {
   const [todos, setTodos] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const url = 'https://jsonplaceholder.typicode.com/todos'
 
@@ -24,8 +25,26 @@ const useTodoProvider = () => {
     fetchTodos()
   }, [])
 
-  const addTodo = () => {}
+  const addTodo = (item) => {
+    if (item === '') {
+      toast.error('Empty Item, Add Something..')
+      return
+    }
+    setLoading(true)
+    // create new todo
+    let todo = {
+      user_id: 1,
+      id: todos.length + 1,
+      title: item,
+      completed: false,
+    }
 
+    setTimeout(() => {
+      toast.success('added item successfully!')
+      setTodos([todo, ...todos])
+      setLoading(false)
+    }, 1000)
+  }
   const updateTodo = () => {}
 
   const deleteItem = () => {}

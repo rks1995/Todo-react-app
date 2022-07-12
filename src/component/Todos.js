@@ -1,10 +1,17 @@
 import { useState } from 'react'
+import { useTodo } from '../contextApi/UseProvideTodo'
 import styles from '../styles/app.module.css'
 
 const Todos = ({ todos }) => {
   const [inputText, setInputText] = useState('')
+  const { addTodo, loading } = useTodo()
 
-  const addTodo = () => {}
+  const addTodoItem = () => {
+    addTodo(inputText)
+    setTimeout(() => {
+      setInputText('')
+    }, 1000)
+  }
 
   return (
     <div className={styles.todosList}>
@@ -15,8 +22,8 @@ const Todos = ({ todos }) => {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
         />
-        <button onClick={addTodo} className={styles.addIcon}>
-          Add
+        <button onClick={addTodoItem} className={styles.addIcon}>
+          {loading ? 'Adding...' : 'Add'}
         </button>
       </div>
       <ul>
