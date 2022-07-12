@@ -1,0 +1,70 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+.justifyCenter {
+  justify-content: center;
+}
+.justifyBetween {
+  justify-content: space-between;
+}
+
+/* =================== Todos =============== */
+.todosContainer {
+  margin-top: 5rem;
+}
+
+@media screen and (max-width: 600px) {
+  .todosContainer {
+    padding: 0 1rem;
+    font-size: 0.85em;
+  }
+}
+
+input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.addIcon {
+  border: none;
+  padding: 0.7rem 1rem;
+  background-color: #ff7396;
+  cursor: pointer;
+}
+
+.todoItem:first-child {
+  margin-top: 50px;
+}
+
+.todoItem {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ff7396;
+  color: #363062;
+}
+
+.todoItem i {
+  margin-right: 5px;
+  cursor: pointer;
+}
+/* =================== spinner =============== */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid blueviolet;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
