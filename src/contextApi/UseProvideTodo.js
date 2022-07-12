@@ -11,12 +11,13 @@ const useTodoProvider = () => {
   const [todos, setTodos] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const url = 'https://jsonplaceholder.typicode.com/todos'
-
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await axios.get(url)
+        // get todos
+        const response = await axios.get(
+          'https://jsonplaceholder.typicode.com/todos'
+        )
         setTodos(response.data)
       } catch (error) {
         console.log(error.message)
@@ -25,7 +26,7 @@ const useTodoProvider = () => {
     fetchTodos()
   }, [])
 
-  const addTodo = (item) => {
+  const addTodo = async (item) => {
     if (item === '') {
       toast.error('Empty Item, Add Something..')
       return
@@ -33,17 +34,24 @@ const useTodoProvider = () => {
     setLoading(true)
     // create new todo
     let todo = {
+      id: todos.length + 2,
       user_id: 1,
-      id: todos.length + 1,
       title: item,
       completed: false,
     }
-
-    setTimeout(() => {
+    try {
+      const response = await axios.post(
+        'https://jsonplaceholder.typicode.com/posts',
+        {
+          todo,
+        }
+      )
       toast.success('added item successfully!')
-      setTodos([todo, ...todos])
+      setTodos([response.data.todo, ...todos])
       setLoading(false)
-    }, 1000)
+    } catch (error) {
+      console.log('error')
+    }
   }
   const updateTodo = () => {}
 
