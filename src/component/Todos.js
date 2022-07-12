@@ -6,7 +6,7 @@ const Todos = ({ todos }) => {
   const [inputText, setInputText] = useState('')
   const [todoObject, setTodoObject] = useState(null)
   const [isUpdate, setIsUpdate] = useState(false)
-  const { addTodo, updateTodo, loading } = useTodo()
+  const { addTodo, updateTodo, deleteItem, loading } = useTodo()
 
   const addTodoItem = () => {
     addTodo(inputText)
@@ -16,19 +16,29 @@ const Todos = ({ todos }) => {
   }
 
   const updateTodoItem = () => {
+    // sending the todoObject and the required updated text
     updateTodo(todoObject, inputText)
+
     setTimeout(() => {
       setInputText('')
+      setIsUpdate(false)
     }, 1000)
   }
 
+  // this function will place the text into the input field for updating.
   const setForUpdate = (e, itemId) => {
     e.preventDefault()
-    console.log(itemId)
     let todo = todos.filter((todo) => todo.id === itemId)
     setInputText(todo[0].title)
     setTodoObject(todo[0])
     setIsUpdate(true)
+  }
+
+  //delete todo item
+
+  const handleDelete = (e, itemId) => {
+    e.preventDefault()
+    deleteItem(itemId)
   }
 
   return (
@@ -64,10 +74,15 @@ const Todos = ({ todos }) => {
               {todo.title}
               <div className={styles.flex}>
                 <a href='/' onClick={(e) => setForUpdate(e, todo.id)}>
-                  <i className='fa-solid fa-pen-to-square'></i>
+                  <i className='fa-solid fa-pen-to-square' id={styles.edit}></i>
                 </a>
-                <a href={todo.id}>
-                  <i className='fa-solid fa-trash'></i>
+                <a
+                  href='/'
+                  onClick={(e) => {
+                    handleDelete(e, todo.id)
+                  }}
+                >
+                  <i className='fa-solid fa-trash' id={styles.delete}></i>
                 </a>
               </div>
             </li>

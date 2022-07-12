@@ -77,7 +77,17 @@ const useTodoProvider = () => {
     }
   }
 
-  const deleteItem = () => {}
+  const deleteItem = async (itemId) => {
+    try {
+      const response = await axios.delete(
+        `https://jsonplaceholder.typicode.com/posts/${itemId}`
+      )
+      console.log(response)
+      toast.success('Deleted Item Successfully!')
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
   return {
     todos,

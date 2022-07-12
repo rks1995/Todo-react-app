@@ -51,10 +51,10 @@ input {
   margin-right: 5px;
   cursor: pointer;
 }
-.todoItem i:first-child {
+#edit {
   color: #eeeeee;
 }
-.todoItem i:last-child {
+#delete {
   color: #a91079;
 }
 /* =================== spinner =============== */
