@@ -4,13 +4,31 @@ import styles from '../styles/app.module.css'
 
 const Todos = ({ todos }) => {
   const [inputText, setInputText] = useState('')
-  const { addTodo, loading } = useTodo()
+  const [todoObject, setTodoObject] = useState(null)
+  const [isUpdate, setIsUpdate] = useState(false)
+  const { addTodo, updateTodo, loading } = useTodo()
 
   const addTodoItem = () => {
     addTodo(inputText)
     setTimeout(() => {
       setInputText('')
     }, 1000)
+  }
+
+  const updateTodoItem = () => {
+    updateTodo(todoObject, inputText)
+    setTimeout(() => {
+      setInputText('')
+    }, 1000)
+  }
+
+  const setForUpdate = (e, itemId) => {
+    e.preventDefault()
+    console.log(itemId)
+    let todo = todos.filter((todo) => todo.id === itemId)
+    setInputText(todo[0].title)
+    setTodoObject(todo[0])
+    setIsUpdate(true)
   }
 
   return (
@@ -22,9 +40,15 @@ const Todos = ({ todos }) => {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
         />
-        <button onClick={addTodoItem} className={styles.addIcon}>
-          {loading ? 'Adding...' : 'Add'}
-        </button>
+        {isUpdate ? (
+          <button onClick={updateTodoItem} className={styles.addIcon}>
+            {loading ? 'Updating...' : 'Update'}
+          </button>
+        ) : (
+          <button onClick={addTodoItem} className={styles.addIcon}>
+            {loading ? 'Adding...' : 'Add'}
+          </button>
+        )}
       </div>
       <ul>
         {todos.map((todo) => {
@@ -39,8 +63,12 @@ const Todos = ({ todos }) => {
             >
               {todo.title}
               <div className={styles.flex}>
-                <i className='fa-solid fa-pen-to-square'></i>
-                <i className='fa-solid fa-trash'></i>
+                <a href='/' onClick={(e) => setForUpdate(e, todo.id)}>
+                  <i className='fa-solid fa-pen-to-square'></i>
+                </a>
+                <a href={todo.id}>
+                  <i className='fa-solid fa-trash'></i>
+                </a>
               </div>
             </li>
           )

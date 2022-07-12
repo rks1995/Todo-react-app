@@ -53,7 +53,29 @@ const useTodoProvider = () => {
       console.log('error')
     }
   }
-  const updateTodo = () => {}
+
+  const updateTodo = async (todoObject, text) => {
+    setLoading(true)
+    // create new todo
+    console.log(todoObject, text)
+    let todo = {
+      ...todoObject,
+      title: text,
+    }
+
+    try {
+      const response = await axios.put(
+        `https://jsonplaceholder.typicode.com/posts/${todoObject.id}`,
+        {
+          todo,
+        }
+      )
+      toast.success(`successfully updated to: ${response.data.todo.title}`)
+      setLoading(false)
+    } catch (error) {
+      console.log('error')
+    }
+  }
 
   const deleteItem = () => {}
 
