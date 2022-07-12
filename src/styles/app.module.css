@@ -12,6 +12,7 @@
 /* =================== Todos =============== */
 .todosContainer {
   margin-top: 5rem;
+  font-size: 0.9em;
 }
 
 @media screen and (max-width: 600px) {
@@ -43,12 +44,18 @@ input {
   padding: 10px;
   margin: 10px 0;
   background-color: #ff7396;
-  color: #363062;
+  color: #180a0a;
 }
 
 .todoItem i {
   margin-right: 5px;
   cursor: pointer;
+}
+.todoItem i:first-child {
+  color: #eeeeee;
+}
+.todoItem i:last-child {
+  color: #a91079;
 }
 /* =================== spinner =============== */
 .spinner {
