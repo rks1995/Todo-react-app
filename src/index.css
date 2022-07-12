@@ -24,4 +24,12 @@ ul li {
   list-style-type: none;
 }
 
-/* ============ app=================== */
+/* ============ Navbar ================== */
+
+.navbar {
+  padding: 0.85em;
+  margin-bottom: 0.7em;
+  text-align: center;
+  background-color: blueviolet;
+  color: #f3f3f3;
+}

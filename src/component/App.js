@@ -1,3 +1,4 @@
+import Navbar from './Navbar'
 import Spinner from './Spinner'
 import Todos from './Todos'
 import styles from '../styles/app.module.css'
@@ -7,6 +8,7 @@ function App() {
   const { todos } = useTodo()
   return (
     <>
+      <Navbar />
       <div
         className={[
           styles.todosContainer,
